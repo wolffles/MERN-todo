@@ -12,7 +12,6 @@ import {
 // container a component that is hooked to redux. if using a redux state within a react component its called container. 
 import { connect } from 'react-redux';
 import { addTask } from '../actions/taskActions';
-import uuid from 'uuid';
 
 
 // if you have a form you SHOULD have a component state not application state.
@@ -37,7 +36,6 @@ class ItemModal extends Component {
         e.preventDefault();
 
         const newTask = {
-            id: uuid(),
             name: this.state.name
 
         }

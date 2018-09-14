@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getTasks,deleteTask } from '../actions/taskActions';
+import { getTasks, deleteTask } from '../actions/taskActions';
 import PropTypes from 'prop-types'
 
 
@@ -35,14 +35,15 @@ class TodoList extends Component {
 
                 <ListGroup>
                     <TransitionGroup className="tasks-list">
-                        {tasks.map(({id, name}) => (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {console.log(tasks)}
+                        {tasks.map(({_id, name}) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                    <Button 
-                                   className='remove-btn'
+                                    className='remove-btn'
                                     color="danger"
                                     size='sm'
-                                    onClick={ this.onDeleteClick.bind(this,id)}
+                                    onClick={ this.onDeleteClick.bind(this, _id)}
                                     >&times;</Button>
                                     {name}
                                 </ListGroupItem>
