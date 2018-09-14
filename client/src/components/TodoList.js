@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid'
 import { connect } from 'react-redux';
-import { getTasks } from '../actions/taskActions';
+import { getTasks,deleteTask } from '../actions/taskActions';
 import PropTypes from 'prop-types'
 
+
 class TodoList extends Component {
-    
     componentDidMount() {
         this.props.getTasks();
     }
-
+    onDeleteClick = (id) => {
+        this.props.deleteTask(id)
+    }
     render() {
         // this.props.task.tasks
         const { tasks } = this.props.task; // destructuring: pulling tasks out of this.props
         return(
             <Container>
-                <Button 
+                {/* <Button 
                     color="dark"
                     style={{marginBottom: '2rem'}}
                     onClick={() => {
@@ -28,9 +29,9 @@ class TodoList extends Component {
                             }));
                         }
                     }}
-                >
+                > 
                     Add Task
-                </Button>
+                </Button>*/}
 
                 <ListGroup>
                     <TransitionGroup className="tasks-list">
@@ -41,11 +42,7 @@ class TodoList extends Component {
                                    className='remove-btn'
                                     color="danger"
                                     size='sm'
-                                    onClick={() => {
-                                        this.setState(state => ({
-                                            tasks: state.tasks.filter(task => task.id !== id)
-                                        }));
-                                    }}
+                                    onClick={ this.onDeleteClick.bind(this,id)}
                                     >&times;</Button>
                                     {name}
                                 </ListGroupItem>
@@ -68,4 +65,4 @@ const mapStateToProps = (state) => ({
     task: state.task // called task because its task in /reducers/index.js
 })
 
-export default connect(mapStateToProps, { getTasks })(TodoList);
+export default connect(mapStateToProps, { getTasks, deleteTask })(TodoList);
